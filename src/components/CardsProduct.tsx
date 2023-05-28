@@ -37,13 +37,11 @@ export function CardsProduct({
             </Heading>
           </Box>
           <Box h={10}>
-            {description?.length === 0 && (
-              <Text textAlign="center" textOverflow="ellipsis">
-                {description.length > 30
-                  ? `${description.substring(0, 30)}...`
-                  : description}
-              </Text>
-            )}
+            <Text textAlign="center" textOverflow="ellipsis">
+              {description && description.length > 30
+                ? `${description.substring(0, 30)}...`
+                : description}
+            </Text>
           </Box>
           <Text color="gray.700" fontWeight="bold" fontSize="2xl">
             {formatCurrency(price)}
