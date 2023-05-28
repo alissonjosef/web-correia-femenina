@@ -1,4 +1,4 @@
-import { Grid, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Grid, useBreakpointValue } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { CardsProduct } from "../components/CardsProduct";
 import { api } from "../lib/api";
@@ -24,9 +24,8 @@ export function Home() {
     getProduct();
   }, []);
   return (
-    <>
+    <Box minHeight="100vh" position="relative">
       {!isMobile ? (
-        
         <Grid
           templateColumns="repeat(4, 1fr)"
           gap={6}
@@ -64,6 +63,6 @@ export function Home() {
           })}
         </Grid>
       )}
-    </>
+    </Box>
   );
 }
