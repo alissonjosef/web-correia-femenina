@@ -1,45 +1,36 @@
 import {
-  Avatar,
-  Box,
-  Drawer,
-  DrawerBody,
-  DrawerContent,
-  DrawerHeader,
-  DrawerOverlay,
-  Flex,
-  HStack,
-  Icon,
-  Image,
-  Input,
-  Link,
-  Text,
-  useBreakpointValue,
-  useDisclosure,
+    Avatar,
+    Box,
+    Flex,
+    HStack,
+    Icon,
+    Image,
+    Input,
+    Text,
+    useBreakpointValue,
 } from "@chakra-ui/react";
 import { RiSearchLine, RiUserAddLine } from "react-icons/ri";
 import Logo from "../assets/correia.png";
 import LogoCorreia from "../assets/logo.png";
-
-export function Header() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const isMobile = useBreakpointValue({ base: true, md: false });
-  return (
-    <>
+  
+  export function SideBar() {
+    const isMobile = useBreakpointValue({ base: true, md: false });
+    return (
+      <>
       {!isMobile ? (
         <Flex
           as="header"
           w="100%"
           maxWidth={1480}
           h={20}
+          mt="2"
           mx="auto"
           px={20}
           align="center"
           bg="gray.100"
         >
-          <Link href="/">
-            <Image src={Logo} w={150} alt="logo Correia" />
-          </Link>
-
+          <Image src={Logo} w={150} alt="logo Correia" />
+  
           <Flex
             as="label"
             flex="1"
@@ -64,7 +55,7 @@ export function Header() {
             />
             <Icon as={RiSearchLine} fontSize={20} color="gray.500" />
           </Flex>
-
+  
           <Flex align="center" ml="auto">
             <HStack
               spacing="8"
@@ -75,14 +66,10 @@ export function Header() {
               borderRight={1}
               borderColor="gray.700"
             >
-              <Link href="/cadastrar">
-                <Icon as={RiUserAddLine} fontSize="20" />
-              </Link>
-              {/* <NavLink to='/cadastrar'>
-              </NavLink> */}
+              <Icon as={RiUserAddLine} fontSize="20" />
             </HStack>
           </Flex>
-
+  
           <Flex align="center">
             <Box mr="4" textAlign="right">
               <Text>Ariane</Text>
@@ -90,7 +77,7 @@ export function Header() {
                 ariane@gmail.com
               </Text>
             </Box>
-
+  
             <Avatar
               size="md"
               name="Ariane Shirley"
@@ -98,8 +85,8 @@ export function Header() {
             />
           </Flex>
         </Flex>
-      ) : (
-        <Flex
+      ):
+      <Flex
           as="header"
           w="100%"
           maxWidth={1480}
@@ -110,23 +97,8 @@ export function Header() {
           align="center"
           bg="gray.100"
         >
-          <Link colorScheme="blue" onClick={onOpen}>
-            <Image src={LogoCorreia} w={50} alt="logo Correia" />
-          </Link>
-          <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
-            <DrawerOverlay />
-            <DrawerContent>
-              <DrawerHeader borderBottomWidth="1px">
-                <Image src={Logo} w={150} alt="logo Correia" />
-              </DrawerHeader>
-              <DrawerBody>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-              </DrawerBody>
-            </DrawerContent>
-          </Drawer>
-
+          <Image src={LogoCorreia} w={50} alt="logo Correia" />
+  
           <Flex
             as="label"
             flex="1"
@@ -151,15 +123,15 @@ export function Header() {
             />
             <Icon as={RiSearchLine} fontSize={20} color="gray.500" />
           </Flex>
-
+  
           <Flex align="center" ml={4}>
-            {/*  <Box mr="4" textAlign="right">
-            <Text>Ariane</Text>
-            <Text color="gray.500" fontSize="small">
-              ariane@gmail.com
-            </Text>
-          </Box> */}
-
+           {/*  <Box mr="4" textAlign="right">
+              <Text>Ariane</Text>
+              <Text color="gray.500" fontSize="small">
+                ariane@gmail.com
+              </Text>
+            </Box> */}
+  
             <Avatar
               size="md"
               name="Ariane Shirley"
@@ -167,7 +139,8 @@ export function Header() {
             />
           </Flex>
         </Flex>
-      )}
-    </>
-  );
-}
+      }
+      </>
+    );
+  }
+  

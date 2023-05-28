@@ -1,72 +1,19 @@
-import { Grid, useBreakpointValue } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
-import { CardsProduct } from "./components/CardsProduct";
+import { CadastroProduct } from "./components/CadastroProduct";
 import { Header } from "./components/Header";
-import { api } from "./lib/api";
-
-interface ProductProps {
-  createdAt: string;
-  description: string;
-  enabled: boolean;
-  imageUrl: string;
-  name: string;
-  price: number;
-}
+import { Home } from "./pages/Home";
 
 function App() {
-  const isMobile = useBreakpointValue({ base: true, md: false });
-  const [product, setProduct] = useState<ProductProps[]>([]);
-
-  async function getProduct() {
-    await api.get("/api/product").then((response) => {
-      setProduct(response.data);
-    });
-  }
-  useEffect(() => {
-    getProduct();
-  }, []);
   return (
     <>
       <Header />
-      {!isMobile ? (
-        <Grid
-          templateColumns="repeat(4, 1fr)"
-          gap={6}
-          w="100%"
-          maxWidth={1480}
-          h={20}
-          mt="10"
-          mx="auto"
-          px={20}
-        >
-          {product.map((product, index) => {
-            return (
-              <CardsProduct
-                key={index}
-                imageUrl={product.imageUrl}
-                name={product.name}
-                description={product.description}
-                price={product.price}
-              />
-            );
-          })}
-        </Grid>
-      ) : (
-        <Grid gap={6} w="100%" h={20} mt="10" mx="auto" px={10}>
-          {product.map((product, index) => {
-            return (
-              <CardsProduct
-                key={index}
-                imageUrl={product.imageUrl}
-                name={product.name}
-                description={product.description}
-                price={product.price}
-              />
-            );
-          })}
-        </Grid>
-      )}
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/cadastrar" element={<CadastroProduct />}></Route>
+        </Routes>
+      </Router>
     </>
   );
 }
