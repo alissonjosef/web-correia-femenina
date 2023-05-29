@@ -24,7 +24,7 @@ export function Home() {
     getProduct();
   }, []);
   return (
-    <Box minHeight="100vh" position="relative">
+    <Box>
       {!isMobile ? (
         <Grid
           templateColumns="repeat(4, 1fr)"
