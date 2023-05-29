@@ -29,9 +29,11 @@ export function FooterBar() {
               <Icon as={AiOutlineInstagram} color="purple.300" fontSize="35" />
             </Flex>
           </Link>
+          <Link href="https://api.whatsapp.com/send?phone=5581982903837&text=Ol%C3%A1+meninas%2C+como+posso+ajudar">
           <Flex justifyContent="center">
             <Icon as={AiOutlineWhatsApp} color="green.300" fontSize="30" />
           </Flex>
+          </Link>
         </HStack>
       </Flex>
     </>
