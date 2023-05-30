@@ -41,7 +41,7 @@ export function Home({ searchValue }: HomeProps) {
   useEffect(() => {
     setIsLoading(true);
     getProduct();
-  }, []);
+  }, [product]);
 
   return (
     <>

@@ -19,9 +19,11 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { RiDeleteBin7Line, RiEdit2Line } from "react-icons/ri";
 import { api } from "../lib/api";
 import { formatCurrency } from "../utils/formatCurrency";
+import { ModalEdit } from "./ModalEdit";
 
 interface CardsProps {
   description?: string;
@@ -29,6 +31,8 @@ interface CardsProps {
   name?: string;
   price: number;
   id: string;
+  enabled?: boolean;
+  modelos?: string;
 }
 
 export function CardsProduct({
@@ -37,13 +41,27 @@ export function CardsProduct({
   name,
   price,
   id,
+  enabled,
+  modelos = '',
 }: CardsProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   async function handleDeleteProduct() {
     try {
       await api.delete(`/api/product/${id}`);
 
+      onClose();
       toast({
         position: "top",
         title: "Produto excluído",
@@ -65,7 +83,13 @@ export function CardsProduct({
   return (
     <Card maxW="sm">
       <CardBody>
-        <Box w="full" display="flex" justifyContent="end">
+        <Box
+          w="full"
+          display="flex"
+          justifyContent="end"
+          transition="transform 0.3s"
+          _hover={{ transform: "scale(1.05)" }}
+        >
           <Flex flexDirection="column" position="absolute">
             <Icon
               onClick={onOpen}
@@ -82,7 +106,7 @@ export function CardsProduct({
             />
 
             <Icon
-              onClick={()=> console.log('Editar')}
+              onClick={handleOpenModal}
               as={RiEdit2Line}
               color="gray.100"
               mt={4}
@@ -96,15 +120,15 @@ export function CardsProduct({
               }}
             />
           </Flex>
+          <Image
+            src={imageUrl}
+            alt="Green double couch with wooden legs"
+            borderRadius="lg"
+            objectFit="cover"
+            w="full"
+            h="xs"
+          />
         </Box>
-        <Image
-          src={imageUrl}
-          alt="Green double couch with wooden legs"
-          borderRadius="lg"
-          objectFit='cover'
-          w='full'
-          h='xs'
-        />
         <Stack mt="6" spacing="3" align="center">
           <Box h={10}>
             <Heading textAlign="center" size={{ xs: "xs", md: "xs", lg: "md" }}>
@@ -164,6 +188,18 @@ export function CardsProduct({
           </ModalFooter>
         </ModalContent>
       </Modal>
+
+      <ModalEdit
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        description={description}
+        imageUrl={imageUrl}
+        name={name}
+        price={price}
+        id={id}
+        enabled={enabled}
+        modelos={modelos}
+      />
     </Card>
   );
 }
