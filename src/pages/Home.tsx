@@ -1,7 +1,7 @@
 import { Box, Grid, useBreakpointValue } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { CardsProduct } from "../components/CardsProduct";
-import { Carregamento } from "../components/Carregamento";
+import { Loading } from "../components/Loading";
 import { api } from "../lib/api";
 
 interface ProductProps {
@@ -13,26 +13,40 @@ interface ProductProps {
   price: number;
   _id: string;
 }
-export function Home() {
+
+interface HomeProps {
+  searchValue: string;
+}
+export function Home({ searchValue }: HomeProps) {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const [product, setProduct] = useState<ProductProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const filteredProducts = product.filter((product) =>
+    product.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
   async function getProduct() {
     setIsLoading(false);
-    await api.get("/api/product").then((response) => {
-      setProduct(response.data);
-    });
+    try {
+      await api.get("/api/product").then((response) => {
+        setProduct(response.data);
+      });
+    } catch (error) {
+      console.log("🚀 ~ file: Home.tsx:38 ~ getProduct ~ error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   }
   useEffect(() => {
     setIsLoading(true);
     getProduct();
-  }, [product]);
+  }, []);
 
   return (
     <>
       {isLoading ? (
-        <Carregamento />
+        <Loading />
       ) : (
         <Box>
           {!isMobile ? (
@@ -46,7 +60,7 @@ export function Home() {
               mx="auto"
               px={20}
             >
-              {product.map((product, index) => {
+              {filteredProducts.map((product, index) => {
                 return (
                   <CardsProduct
                     key={index}
@@ -61,7 +75,7 @@ export function Home() {
             </Grid>
           ) : (
             <Grid gap={6} w="100%" h={20} mt="10" mx="auto" px={10}>
-              {product.map((product, index) => {
+              {filteredProducts.map((product, index) => {
                 return (
                   <CardsProduct
                     key={index}

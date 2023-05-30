@@ -16,13 +16,30 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { RiSearchLine, RiUserAddLine } from "react-icons/ri";
 import Logo from "../assets/correia.png";
 import LogoCorreia from "../assets/logo.png";
 
-export function Header() {
+interface Headerprops {
+  onSearch: (value: string) => void;
+}
+
+export function Header({ onSearch }: Headerprops) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchValue(value);
+    onSearch(value);
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    onSearch(searchValue);
+  };
   return (
     <>
       {!isMobile ? (
@@ -55,12 +72,14 @@ export function Header() {
             align="center"
           >
             <Input
-              color="gray.50"
+              color="gray.700"
               variant="unstyled"
               px="4"
               mr="4"
               placeholder="Buscar pelo seu produtor"
               _placeholder={{ color: "gray.400" }}
+              value={searchValue}
+              onChange={handleSearchChange}
             />
             <Icon as={RiSearchLine} fontSize={20} color="gray.500" />
           </Flex>
