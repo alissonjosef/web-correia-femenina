@@ -70,10 +70,11 @@ export const CadastroProduct = () => {
       formData.append("modelos", data.modelos);
 
       await api.post("/api/product", formData);
-
-      reset(formData);
+      setPreview('')
+      reset();
 
       toast({
+        position: 'top',
         title: "Produto cadastrado",
         status: "success",
         duration: 9000,
@@ -81,6 +82,7 @@ export const CadastroProduct = () => {
       });
     } catch (error) {
       return toast({
+        position: 'top',
         title: "Produto não cadastrado",
         status: "error",
         duration: 9000,

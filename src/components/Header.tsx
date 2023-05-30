@@ -78,8 +78,6 @@ export function Header() {
               <Link href="/cadastrar">
                 <Icon as={RiUserAddLine} fontSize="20" />
               </Link>
-              {/* <NavLink to='/cadastrar'>
-              </NavLink> */}
             </HStack>
           </Flex>
 
@@ -97,7 +95,6 @@ export function Header() {
               src="https://scontent.frec6-1.fna.fbcdn.net/v/t39.30808-6/262174588_4316835295091680_3672400332259559107_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=nMmoaJSVQz4AX81SKFu&_nc_ht=scontent.frec6-1.fna&oh=00_AfCPUaTBBV7xFwZ7xraSg6pS74bpKeVNKf9-BycDgYqvTA&oe=647762CF"
             />
           </Flex>
-          
         </Flex>
       ) : (
         <Flex
@@ -118,7 +115,9 @@ export function Header() {
             <DrawerOverlay />
             <DrawerContent>
               <DrawerHeader borderBottomWidth="1px">
-                <Image src={Logo} w={150} alt="logo Correia" />
+                <Link href="/">
+                  <Image src={Logo} w={150} alt="logo Correia" />
+                </Link>
               </DrawerHeader>
               <DrawerBody>
                 <p>Some contents...</p>
