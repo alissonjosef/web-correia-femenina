@@ -5,6 +5,7 @@ import { CadastroProduct } from "./components/CadastroProduct";
 import { Header } from "./components/Header";
 import { Home } from "./pages/Home";
 
+
 function App() {
   const [searchValue, setSearchValue] = useState("");
 

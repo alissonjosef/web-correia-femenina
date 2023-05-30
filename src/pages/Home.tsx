@@ -1,5 +1,6 @@
 import { Box, Grid, useBreakpointValue } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Key } from "react";
+import { useQuery } from "react-query";
 import { CardsProduct } from "../components/CardsProduct";
 import { Loading } from "../components/Loading";
 import { api } from "../lib/api";
@@ -19,29 +20,34 @@ interface HomeProps {
 }
 export function Home({ searchValue }: HomeProps) {
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const [product, setProduct] = useState<ProductProps[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
-  const filteredProducts = product.filter((product) =>
-    product.name.toLowerCase().includes(searchValue.toLowerCase())
+  const {
+    data: product,
+    isLoading,
+    isError,
+  } = useQuery(
+    "products",
+    async () => {
+      const response = await api.get("/api/product");
+      return response.data;
+    },
+    {
+      refetchInterval: 5000,
+    }
   );
 
-  async function getProduct() {
-    setIsLoading(false);
-    try {
-      await api.get("/api/product").then((response) => {
-        setProduct(response.data);
-      });
-    } catch (error) {
-      console.log("🚀 ~ file: Home.tsx:38 ~ getProduct ~ error:", error);
-    } finally {
-      setIsLoading(false);
-    }
+  const filteredProducts =
+    product?.filter((product: { name: string }) =>
+      product.name.toLowerCase().includes(searchValue.toLowerCase())
+    ) ?? [];
+
+  if (isLoading) {
+    return <Loading />;
   }
-  useEffect(() => {
-    setIsLoading(true);
-    getProduct();
-  }, [product]);
+
+  if (isError) {
+    return <div>Error fetching data</div>;
+  }
 
   return (
     <>
@@ -60,33 +66,37 @@ export function Home({ searchValue }: HomeProps) {
               mx="auto"
               px={20}
             >
-              {filteredProducts.map((product, index) => {
-                return (
-                  <CardsProduct
-                    key={index}
-                    imageUrl={product.imageUrl}
-                    name={product.name}
-                    description={product.description}
-                    price={product.price}
-                    id={product._id}
-                  />
-                );
-              })}
+              {filteredProducts.map(
+                (product: ProductProps, index: Key | null | undefined) => {
+                  return (
+                    <CardsProduct
+                      key={index}
+                      imageUrl={product.imageUrl}
+                      name={product.name}
+                      description={product.description}
+                      price={product.price}
+                      id={product._id}
+                    />
+                  );
+                }
+              )}
             </Grid>
           ) : (
             <Grid gap={6} w="100%" h={20} mt="10" mx="auto" px={10}>
-              {filteredProducts.map((product, index) => {
-                return (
-                  <CardsProduct
-                    key={index}
-                    imageUrl={product.imageUrl}
-                    name={product.name}
-                    description={product.description}
-                    price={product.price}
-                    id={product._id}
-                  />
-                );
-              })}
+              {filteredProducts.map(
+                (product: ProductProps, index: Key | null | undefined) => {
+                  return (
+                    <CardsProduct
+                      key={index}
+                      imageUrl={product.imageUrl}
+                      name={product.name}
+                      description={product.description}
+                      price={product.price}
+                      id={product._id}
+                    />
+                  );
+                }
+              )}
             </Grid>
           )}
         </Box>
