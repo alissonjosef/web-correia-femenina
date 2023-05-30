@@ -1,22 +1,22 @@
 import {
-    Box,
-    Button,
-    Flex,
-    FormControl,
-    FormLabel,
-    Icon,
-    Image,
-    Input,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-    ModalOverlay,
-    Select,
-    Switch,
-    useToast,
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Icon,
+  Image,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Select,
+  Switch,
+  useToast,
 } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -57,7 +57,6 @@ export function ModalEdit({
   const {
     register,
     handleSubmit,
-    reset,
     setValue: setFormValue,
   } = useForm({
     defaultValues: {
@@ -97,7 +96,7 @@ export function ModalEdit({
 
   const onSubmit = async (data: any) => {
     console.log("🚀 ~ file: ModalEdit.tsx:99 ~ onSubmit ~ data:", data);
-     try {
+    try {
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("description", data.description);
@@ -119,7 +118,7 @@ export function ModalEdit({
       await api.put(`/api/product/${id}`, formData);
       setPreview("");
       setImagePreview(null);
-      onClose()
+      onClose();
 
       toast({
         position: "top",
@@ -136,7 +135,7 @@ export function ModalEdit({
         duration: 9000,
         isClosable: true,
       });
-    } 
+    }
   };
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

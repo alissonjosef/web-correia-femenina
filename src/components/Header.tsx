@@ -16,7 +16,7 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { RiSearchLine, RiUserAddLine } from "react-icons/ri";
 import Logo from "../assets/correia.png";
 import LogoCorreia from "../assets/logo.png";
@@ -36,10 +36,10 @@ export function Header({ onSearch }: Headerprops) {
     onSearch(value);
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  /* const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSearch(searchValue);
-  };
+  }; */
   return (
     <>
       {!isMobile ? (
