@@ -11,13 +11,14 @@ import {
   Icon,
   Image,
   Input,
-  Link,
+  Link as LinkChakra,
   Text,
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { RiSearchLine, RiUserAddLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
 import Logo from "../assets/correia.png";
 import LogoCorreia from "../assets/logo.png";
 
@@ -36,10 +37,10 @@ export function Header({ onSearch }: Headerprops) {
     onSearch(value);
   };
 
-  /* const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSearch(searchValue);
-  }; */
+  };
   return (
     <>
       {!isMobile ? (
@@ -53,7 +54,7 @@ export function Header({ onSearch }: Headerprops) {
           align="center"
           bg="gray.100"
         >
-          <Link href="/">
+          <Link to="/">
             <Image src={Logo} w={150} alt="logo Correia" />
           </Link>
 
@@ -94,7 +95,7 @@ export function Header({ onSearch }: Headerprops) {
               borderRight={1}
               borderColor="gray.700"
             >
-              <Link href="/cadastrar">
+              <Link to="/cadastrar">
                 <Icon as={RiUserAddLine} fontSize="20" />
               </Link>
             </HStack>
@@ -127,16 +128,16 @@ export function Header({ onSearch }: Headerprops) {
           align="center"
           bg="gray.100"
         >
-          <Link colorScheme="blue" onClick={onOpen}>
+          <Box  onClick={onOpen}>
             <Image src={LogoCorreia} w={50} alt="logo Correia" />
-          </Link>
+          </Box>
           <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
             <DrawerOverlay />
             <DrawerContent>
               <DrawerHeader borderBottomWidth="1px">
-                <Link href="/">
+                <LinkChakra href="/">
                   <Image src={Logo} w={150} alt="logo Correia" />
-                </Link>
+                </LinkChakra>
               </DrawerHeader>
               <DrawerBody>
                 <p>Some contents...</p>
@@ -161,12 +162,14 @@ export function Header({ onSearch }: Headerprops) {
             align="center"
           >
             <Input
-              color="gray.50"
+              color="gray.700"
               variant="unstyled"
               px="4"
               mr="4"
               placeholder="Buscar pelo seu produtor"
               _placeholder={{ color: "gray.400" }}
+              value={searchValue}
+              onChange={handleSearchChange}
             />
             <Icon as={RiSearchLine} fontSize={20} color="gray.500" />
           </Flex>
@@ -179,11 +182,13 @@ export function Header({ onSearch }: Headerprops) {
             </Text>
           </Box> */}
 
-            <Avatar
-              size="md"
-              name="Ariane Shirley"
-              src="https://scontent.frec6-1.fna.fbcdn.net/v/t39.30808-6/262174588_4316835295091680_3672400332259559107_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=nMmoaJSVQz4AX81SKFu&_nc_ht=scontent.frec6-1.fna&oh=00_AfCPUaTBBV7xFwZ7xraSg6pS74bpKeVNKf9-BycDgYqvTA&oe=647762CF"
-            />
+            <Link to="/cadastrar">
+              <Avatar
+                size="md"
+                name="Ariane Shirley"
+                src="https://scontent.frec6-1.fna.fbcdn.net/v/t39.30808-6/262174588_4316835295091680_3672400332259559107_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=nMmoaJSVQz4AX81SKFu&_nc_ht=scontent.frec6-1.fna&oh=00_AfCPUaTBBV7xFwZ7xraSg6pS74bpKeVNKf9-BycDgYqvTA&oe=647762CF"
+              />
+            </Link>
           </Flex>
         </Flex>
       )}
