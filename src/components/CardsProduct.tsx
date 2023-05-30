@@ -101,18 +101,21 @@ export function CardsProduct({
           src={imageUrl}
           alt="Green double couch with wooden legs"
           borderRadius="lg"
+          objectFit='cover'
+          w='full'
+          h='xs'
         />
         <Stack mt="6" spacing="3" align="center">
           <Box h={10}>
-            <Heading textAlign="center" size={{ xs: "xs", md: "md", lg: "md" }}>
+            <Heading textAlign="center" size={{ xs: "xs", md: "xs", lg: "md" }}>
               {name}
             </Heading>
           </Box>
-          <Box h={10}>
+          <Box h={5}>
             <Text
               textAlign="center"
               textOverflow="ellipsis"
-              size={{ xs: "xs", md: "md", lg: "md" }}
+              size={{ xs: "xs", md: "xs", lg: "md" }}
             >
               {description && description.length > 30
                 ? `${description.substring(0, 30)}...`
