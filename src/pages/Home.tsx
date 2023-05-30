@@ -31,9 +31,9 @@ export function Home({ searchValue }: HomeProps) {
       const response = await api.get("/api/product");
       return response.data;
     },
-    {
+    /* {
       refetchInterval: 5000,
-    }
+    } */
   );
 
   const filteredProducts =

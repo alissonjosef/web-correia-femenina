@@ -21,6 +21,7 @@ import { api } from "../lib/api";
 const categoria = ["MASCULINO", "FEMENINO"];
 
 export const CadastroProduct = () => {
+  /* const { setProduct } = useContext(ProductContext); */
   const { register, handleSubmit, reset } = useForm();
   const toast = useToast();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -70,11 +71,11 @@ export const CadastroProduct = () => {
       formData.append("modelos", data.modelos);
 
       await api.post("/api/product", formData);
-      setPreview('')
+      setPreview("");
       reset();
 
       toast({
-        position: 'top',
+        position: "top",
         title: "Produto cadastrado",
         status: "success",
         duration: 9000,
@@ -82,7 +83,7 @@ export const CadastroProduct = () => {
       });
     } catch (error) {
       return toast({
-        position: 'top',
+        position: "top",
         title: "Produto não cadastrado",
         status: "error",
         duration: 9000,
@@ -156,9 +157,7 @@ export const CadastroProduct = () => {
                     fontSize={40}
                   />
                 </label>
-                {preview && (
-                  <Image src={preview} alt=""  rounded="lg" />
-                )}
+                {preview && <Image src={preview} alt="" rounded="lg" />}
               </FormControl>
             </Box>
 
