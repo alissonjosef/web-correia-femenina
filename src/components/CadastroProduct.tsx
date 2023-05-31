@@ -21,7 +21,7 @@ import { api } from "../lib/api";
 const categoria = ["MASCULINO", "FEMENINO"];
 
 export const CadastroProduct = () => {
-  /* const { setProduct } = useContext(ProductContext); */
+  
   const { register, handleSubmit, reset } = useForm();
   const toast = useToast();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -71,6 +71,8 @@ export const CadastroProduct = () => {
       formData.append("modelos", data.modelos);
 
       await api.post("/api/product", formData);
+
+    
       setPreview("");
       reset();
 

@@ -83,84 +83,81 @@ export function CardsProduct({
 
   return (
     <Card maxW="sm">
-      <Link to='/infoProduto'>
-        <CardBody>
-          <Box
-            w="full"
-            display="flex"
-            justifyContent="end"
-            transition="transform 0.3s"
-            _hover={{ transform: "scale(1.05)" }}
-          >
-            <Flex flexDirection="column" position="absolute">
-              <Icon
-                onClick={onOpen}
-                as={RiDeleteBin7Line}
-                color="gray.100"
-                mt={2}
-                ml={2}
-                _hover={{
-                  color: "red.300",
-                  background: "white",
-                  rounded: "full",
-                  padding: "2px",
-                }}
-              />
-
-              <Icon
-                onClick={handleOpenModal}
-                as={RiEdit2Line}
-                color="gray.100"
-                mt={4}
-                ml={2}
-                mr={2}
-                _hover={{
-                  color: "red.300",
-                  background: "white",
-                  rounded: "full",
-                  padding: "2px",
-                }}
-              />
-            </Flex>
-            <Image
-              src={imageUrl}
-              alt="Green double couch with wooden legs"
-              borderRadius="lg"
-              objectFit="cover"
-              w="full"
-              h="xs"
+      <CardBody>
+        <Box
+          w="full"
+          display="flex"
+          justifyContent="end"
+          transition="transform 0.3s"
+          _hover={{ transform: "scale(1.05)" }}
+        >
+          <Flex flexDirection="column" position="absolute">
+            <Icon
+              onClick={onOpen}
+              as={RiDeleteBin7Line}
+              color="gray.100"
+              mt={2}
+              ml={2}
+              _hover={{
+                color: "red.300",
+                background: "white",
+                rounded: "full",
+                padding: "2px",
+              }}
             />
+
+            <Icon
+              onClick={handleOpenModal}
+              as={RiEdit2Line}
+              color="gray.100"
+              mt={4}
+              ml={2}
+              mr={2}
+              _hover={{
+                color: "red.300",
+                background: "white",
+                rounded: "full",
+                padding: "2px",
+              }}
+            />
+          </Flex>
+          <Link to={`/infoProduto/${id}`}>
+          <Image
+            src={imageUrl}
+            alt="Green double couch with wooden legs"
+            borderRadius="lg"
+            objectFit="cover"
+            w="full"
+            h="xs"
+          />
+          </Link>
+        </Box>
+        <Stack mt="6" spacing="3" align="center">
+          <Box h={10}>
+            <Heading textAlign="center" size={{ xs: "xs", md: "xs", lg: "md" }}>
+              {name}
+            </Heading>
           </Box>
-          <Stack mt="6" spacing="3" align="center">
-            <Box h={10}>
-              <Heading
-                textAlign="center"
-                size={{ xs: "xs", md: "xs", lg: "md" }}
-              >
-                {name}
-              </Heading>
-            </Box>
-            <Box h={5}>
-              <Text
-                textAlign="center"
-                textOverflow="ellipsis"
-                size={{ xs: "xs", md: "xs", lg: "md" }}
-              >
-                {description && description.length > 30
-                  ? `${description.substring(0, 30)}...`
-                  : description}
-              </Text>
-            </Box>
+          <Box h={5}>
             <Text
-              color="gray.700"
-              fontWeight="bold"
-              fontSize={{ base: "xl", md: "2xl" }}
+              textAlign="center"
+              textOverflow="ellipsis"
+              size={{ xs: "xs", md: "xs", lg: "md" }}
             >
-              {formatCurrency(price)}
+              {description && description.length > 30
+                ? `${description.substring(0, 30)}...`
+                : description}
             </Text>
-          </Stack>
-        </CardBody>
-      </Link>
+          </Box>
+          <Text
+            color="gray.700"
+            fontWeight="bold"
+            fontSize={{ base: "xl", md: "2xl" }}
+          >
+            {formatCurrency(price)}
+          </Text>
+        </Stack>
+      </CardBody>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

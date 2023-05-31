@@ -1,8 +1,9 @@
 import { Box, Grid, useBreakpointValue } from "@chakra-ui/react";
-import { Key } from "react";
+import { Key, useContext } from "react";
 import { useQuery } from "react-query";
 import { CardsProduct } from "../components/CardsProduct";
 import { Loading } from "../components/Loading";
+import { ProductContext } from "../components/ProductContext";
 import { api } from "../lib/api";
 
 interface ProductProps {
@@ -19,6 +20,7 @@ interface HomeProps {
   searchValue: string;
 }
 export function Home({ searchValue }: HomeProps) {
+  const { setProduct } = useContext(ProductContext);
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   const {
@@ -29,6 +31,7 @@ export function Home({ searchValue }: HomeProps) {
     "products",
     async () => {
       const response = await api.get("/api/product");
+      setProduct(response.data)
       return response.data;
     },
     /* {

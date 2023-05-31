@@ -8,6 +8,7 @@ import { InfoProduct } from "./components/InfoProduct";
 import { ProductProvider } from "./components/ProductContext";
 import { Home } from "./pages/Home";
 
+
 function App() {
   const [searchValue, setSearchValue] = useState("");
 
@@ -21,7 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home searchValue={searchValue} />}></Route>
           <Route path="/cadastrar" element={<CadastroProduct />}></Route>
-          <Route path="/infoProduto" element={<InfoProduct />}></Route>
+          <Route path="/infoProduto/:productId" element={<InfoProduct />}></Route>
         </Routes>
 
         {/* <Box position="fixed" mt={10} bottom={0} left={0} right={0} bg="gray.200" >
