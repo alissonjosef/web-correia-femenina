@@ -1,5 +1,6 @@
 import {
   Box,
+  Center,
   Flex,
   Grid,
   Image,
@@ -30,15 +31,15 @@ export function InfoProduct() {
   }
 
   return (
+    <Center py={{base: 6 , md: 8}}>
     <Grid
       templateColumns={isMobile ? "1fr" : "repeat(2, 1fr)"}
       gap={4}
       alignItems="center"
-      p={[20, 10, 10, 20]}
+      maxWidth="900px"
     >
       <Image
         borderRadius="lg"
-        /* style={{ width: "200px", height: "200px" }} */
         src={productData.imageUrl}
         alt={productData.name}
       />
@@ -56,5 +57,6 @@ export function InfoProduct() {
         </Box>
       </Flex>
     </Grid>
+  </Center>
   );
 }
