@@ -150,7 +150,7 @@ setIsNewPost(differenceInDays <= 1);
               </Badge>
             </Box>
           )}
-          {enabled === true && (
+          {enabled === false && (
             <Box justifyContent="center">
               <Badge m="1" colorScheme="red" position="absolute" zIndex={999}>
                 Produto esgotado
@@ -165,7 +165,7 @@ setIsNewPost(differenceInDays <= 1);
               borderRadius="lg"
               objectFit="cover"
               w="full"
-              opacity={enabled === true ? "0.2" : ""}
+              opacity={enabled === true ? "" : "0.2"}
             />
           </Link>
         </Box>
