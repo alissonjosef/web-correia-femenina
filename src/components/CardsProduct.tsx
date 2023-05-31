@@ -128,7 +128,7 @@ export function CardsProduct({
             borderRadius="lg"
             objectFit="cover"
             w="full"
-            h="xs"
+            
           />
           </Link>
         </Box>

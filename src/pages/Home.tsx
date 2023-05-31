@@ -34,9 +34,9 @@ export function Home({ searchValue }: HomeProps) {
       setProduct(response.data)
       return response.data;
     },
-    /* {
+    {
       refetchInterval: 5000,
-    } */
+    } 
   );
 
   const filteredProducts =
