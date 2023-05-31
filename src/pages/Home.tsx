@@ -78,6 +78,7 @@ export function Home({ searchValue }: HomeProps) {
                       name={product.name}
                       description={product.description}
                       price={product.price}
+                      enabled={product.enabled}
                       id={product._id}
                     />
                   );
@@ -95,6 +96,7 @@ export function Home({ searchValue }: HomeProps) {
                       name={product.name}
                       description={product.description}
                       price={product.price}
+                      enabled={product.enabled}
                       id={product._id}
                     />
                   );

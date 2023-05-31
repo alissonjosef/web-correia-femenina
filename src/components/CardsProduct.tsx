@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Button,
   Card,
@@ -95,6 +96,8 @@ export function CardsProduct({
             <Icon
               onClick={onOpen}
               as={RiDeleteBin7Line}
+              position="relative"
+              zIndex={999}
               color="gray.100"
               mt={2}
               ml={2}
@@ -109,6 +112,8 @@ export function CardsProduct({
             <Icon
               onClick={handleOpenModal}
               as={RiEdit2Line}
+              position="relative"
+              zIndex={999}
               color="gray.100"
               mt={4}
               ml={2}
@@ -121,15 +126,23 @@ export function CardsProduct({
               }}
             />
           </Flex>
+          {enabled === true && (
+            <Box justifyContent="center">
+              <Badge m="1" colorScheme="green" position="absolute" zIndex={999}>
+                Produto esgotado
+              </Badge>
+            </Box>
+          )}
           <Link to={`/infoProduto/${id}`}>
-          <Image
-            src={imageUrl}
-            alt="Green double couch with wooden legs"
-            borderRadius="lg"
-            objectFit="cover"
-            w="full"
-            
-          />
+            <Image
+              position="relative"
+              src={imageUrl}
+              alt="Green double couch with wooden legs"
+              borderRadius="lg"
+              objectFit="cover"
+              w="full"
+              opacity={enabled === true ? "0.2" : ""}
+            />
           </Link>
         </Box>
         <Stack mt="6" spacing="3" align="center">
