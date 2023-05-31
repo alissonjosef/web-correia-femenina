@@ -186,7 +186,7 @@ export function Header({ onSearch }: Headerprops) {
               <Avatar
                 size="md"
                 name="Ariane Shirley"
-                src="https://scontent.frec6-1.fna.fbcdn.net/v/t39.30808-6/262174588_4316835295091680_3672400332259559107_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=nMmoaJSVQz4AX81SKFu&_nc_ht=scontent.frec6-1.fna&oh=00_AfCPUaTBBV7xFwZ7xraSg6pS74bpKeVNKf9-BycDgYqvTA&oe=647762CF"
+                src="https://scontent.frec31-1.fna.fbcdn.net/v/t39.30808-6/262174588_4316835295091680_3672400332259559107_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=Uj2wZ4VckHcAX8lb-gU&_nc_ht=scontent.frec31-1.fna&oh=00_AfAlCnNjQviyfSVnH9hQpygtRcSQZqOV7wKGrTyRERcp4A&oe=647D518F"
               />
             </Link>
           </Flex>
