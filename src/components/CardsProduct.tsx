@@ -20,13 +20,13 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { format, parseISO } from "date-fns";
+import { useEffect, useState } from "react";
 import { RiDeleteBin7Line, RiEdit2Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { api } from "../lib/api";
 import { formatCurrency } from "../utils/formatCurrency";
 import { ModalEdit } from "./ModalEdit";
-
 interface CardsProps {
   description?: string;
   imageUrl?: string;
@@ -35,6 +35,7 @@ interface CardsProps {
   id: string;
   enabled?: boolean;
   modelos?: string;
+  createdAt: string;
 }
 
 export function CardsProduct({
@@ -45,10 +46,11 @@ export function CardsProduct({
   id,
   enabled,
   modelos = "",
+  createdAt,
 }: CardsProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
-
+  const [isNewPost, setIsNewPost] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -81,6 +83,21 @@ export function CardsProduct({
       });
     }
   }
+
+  useEffect(() => {
+    const createdAtNew = parseISO(createdAt);
+const postDate = format(createdAtNew, "yyyy-MM-dd");
+console.log("🚀 ~ file: CardsProduct.tsx:95 ~ useEffect ~ postDate:", postDate);
+
+const currentDate = new Date();
+const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
+const differenceInDays = Math.floor((currentDate.getTime() - createdAtNew.getTime()) / oneDayInMilliseconds);
+
+const formattedDate = format(createdAtNew, "yyyy-MM-dd");
+console.log("🚀 ~ file: CardsProduct.tsx:105 ~ useEffect ~ formattedDate:", formattedDate);
+
+setIsNewPost(differenceInDays <= 1);
+  }, []);
 
   return (
     <Card maxW="sm">
@@ -126,9 +143,16 @@ export function CardsProduct({
               }}
             />
           </Flex>
-          {enabled === true && (
+          {isNewPost && (
             <Box justifyContent="center">
               <Badge m="1" colorScheme="green" position="absolute" zIndex={999}>
+                Novo Produto
+              </Badge>
+            </Box>
+          )}
+          {enabled === false && (
+            <Box justifyContent="center">
+              <Badge m="1" colorScheme="red" position="absolute" zIndex={999}>
                 Produto esgotado
               </Badge>
             </Box>
@@ -141,7 +165,7 @@ export function CardsProduct({
               borderRadius="lg"
               objectFit="cover"
               w="full"
-              opacity={enabled === true ? "0.2" : ""}
+              opacity={enabled === true ? "" : "0.2"}
             />
           </Link>
         </Box>

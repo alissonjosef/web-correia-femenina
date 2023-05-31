@@ -44,6 +44,12 @@ export function Home({ searchValue }: HomeProps) {
       product.name.toLowerCase().includes(searchValue.toLowerCase())
     ) ?? [];
 
+  /*   const sortedProducts = filteredProducts.length > 0
+  ? filteredProducts.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    )
+  : []; */
+
   if (isLoading) {
     return <Loading />;
   }
@@ -80,6 +86,7 @@ export function Home({ searchValue }: HomeProps) {
                       price={product.price}
                       enabled={product.enabled}
                       id={product._id}
+                      createdAt={product.createdAt}
                     />
                   );
                 }
@@ -98,6 +105,7 @@ export function Home({ searchValue }: HomeProps) {
                       price={product.price}
                       enabled={product.enabled}
                       id={product._id}
+                      createdAt={product.createdAt}
                     />
                   );
                 }
