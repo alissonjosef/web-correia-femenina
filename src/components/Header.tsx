@@ -12,7 +12,6 @@ import {
   Image,
   Input,
   Link as LinkChakra,
-  Text,
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -21,6 +20,7 @@ import { RiSearchLine, RiUserAddLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import Logo from "../assets/correia.png";
 import LogoCorreia from "../assets/logo.png";
+import { Login } from "./Login";
 
 interface Headerprops {
   onSearch: (value: string) => void;
@@ -101,7 +101,8 @@ export function Header({ onSearch }: Headerprops) {
             </HStack>
           </Flex>
 
-          <Flex align="center">
+          <Login />
+          {/* <Flex align="center">
             <Box mr="4" textAlign="right">
               <Text>Ariane</Text>
               <Text color="gray.500" fontSize="small">
@@ -114,7 +115,7 @@ export function Header({ onSearch }: Headerprops) {
               name="Ariane Shirley"
               src="https://scontent.frec6-1.fna.fbcdn.net/v/t39.30808-6/262174588_4316835295091680_3672400332259559107_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=nMmoaJSVQz4AX81SKFu&_nc_ht=scontent.frec6-1.fna&oh=00_AfCPUaTBBV7xFwZ7xraSg6pS74bpKeVNKf9-BycDgYqvTA&oe=647762CF"
             />
-          </Flex>
+          </Flex> */}
         </Flex>
       ) : (
         <Flex
@@ -128,7 +129,7 @@ export function Header({ onSearch }: Headerprops) {
           align="center"
           bg="gray.100"
         >
-          <Box  onClick={onOpen}>
+          <Box onClick={onOpen}>
             <Image src={LogoCorreia} w={50} alt="logo Correia" />
           </Box>
           <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
