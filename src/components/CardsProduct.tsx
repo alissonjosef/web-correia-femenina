@@ -86,19 +86,21 @@ export function CardsProduct({
 
   useEffect(() => {
     const createdAtNew = parseISO(createdAt);
-    const postDate = format(createdAtNew, "yyyy-MM-dd");
-    const currentDate = new Date();
-    const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-    const differenceInDays = Math.floor(
-      (currentDate.getTime() - createdAtNew.getTime()) / oneDayInMilliseconds
-    );
+const postDate = format(createdAtNew, "yyyy-MM-dd");
+console.log("🚀 ~ file: CardsProduct.tsx:95 ~ useEffect ~ postDate:", postDate);
 
-    const formattedDate = format(createdAtNew, "yyyy-MM-dd");
-    setIsNewPost(differenceInDays <= 1);
+const currentDate = new Date();
+const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
+const differenceInDays = Math.floor((currentDate.getTime() - createdAtNew.getTime()) / oneDayInMilliseconds);
+
+const formattedDate = format(createdAtNew, "yyyy-MM-dd");
+console.log("🚀 ~ file: CardsProduct.tsx:105 ~ useEffect ~ formattedDate:", formattedDate);
+
+setIsNewPost(differenceInDays <= 1);
   }, []);
 
   return (
-    <Card maxW="sm" position="relative">
+    <Card maxW="sm">
       <CardBody>
         <Box
           w="full"
@@ -107,11 +109,11 @@ export function CardsProduct({
           transition="transform 0.3s"
           _hover={{ transform: "scale(1.05)" }}
         >
-          <Flex flexDirection="column" position="relative">
+          <Flex flexDirection="column" position="absolute">
             <Icon
               onClick={onOpen}
               as={RiDeleteBin7Line}
-              position="absolute"
+              position="relative"
               zIndex={999}
               color="gray.100"
               mt={2}
@@ -127,7 +129,7 @@ export function CardsProduct({
             <Icon
               onClick={handleOpenModal}
               as={RiEdit2Line}
-              position="absolute"
+              position="relative"
               zIndex={999}
               color="gray.100"
               mt={4}
@@ -142,27 +144,15 @@ export function CardsProduct({
             />
           </Flex>
           {isNewPost && (
-            <Box
-              justifyContent="center"
-              position="absolute"
-              top="1"
-              right="1"
-              zIndex={999}
-            >
-              <Badge m="1" colorScheme="green">
+            <Box justifyContent="center">
+              <Badge m="1" colorScheme="green" position="absolute" zIndex={999}>
                 Novo Produto
               </Badge>
             </Box>
           )}
           {enabled === false && (
-            <Box
-              justifyContent="center"
-              position="absolute"
-              top="1"
-              right="1"
-              zIndex={999}
-            >
-              <Badge m="1" colorScheme="red">
+            <Box justifyContent="center">
+              <Badge m="1" colorScheme="red" position="absolute" zIndex={999}>
                 Produto esgotado
               </Badge>
             </Box>
