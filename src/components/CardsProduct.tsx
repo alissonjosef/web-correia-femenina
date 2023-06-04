@@ -128,40 +128,42 @@ export function CardsProduct({
           transition="transform 0.3s"
           _hover={{ transform: "scale(1.05)" }}
         >
-          <Flex flexDirection="column" position="absolute">
-            <Icon
-              onClick={onOpen}
-              as={RiDeleteBin7Line}
-              position="relative"
-              zIndex={999}
-              color="gray.100"
-              mt={2}
-              ml={2}
-              _hover={{
-                color: "red.300",
-                background: "white",
-                rounded: "full",
-                padding: "2px",
-              }}
-            />
+          {tokenStorage && (
+            <Flex flexDirection="column" position="absolute">
+              <Icon
+                onClick={onOpen}
+                as={RiDeleteBin7Line}
+                position="relative"
+                zIndex={999}
+                color="gray.100"
+                mt={2}
+                ml={2}
+                _hover={{
+                  color: "red.300",
+                  background: "white",
+                  rounded: "full",
+                  padding: "2px",
+                }}
+              />
 
-            <Icon
-              onClick={handleOpenModal}
-              as={RiEdit2Line}
-              position="relative"
-              zIndex={999}
-              color="gray.100"
-              mt={4}
-              ml={2}
-              mr={2}
-              _hover={{
-                color: "red.300",
-                background: "white",
-                rounded: "full",
-                padding: "2px",
-              }}
-            />
-          </Flex>
+              <Icon
+                onClick={handleOpenModal}
+                as={RiEdit2Line}
+                position="relative"
+                zIndex={999}
+                color="gray.100"
+                mt={4}
+                ml={2}
+                mr={2}
+                _hover={{
+                  color: "red.300",
+                  background: "white",
+                  rounded: "full",
+                  padding: "2px",
+                }}
+              />
+            </Flex>
+          )}
           {isNewPost && (
             <Box justifyContent="center">
               <Badge m="1" colorScheme="green" position="absolute" zIndex={999}>

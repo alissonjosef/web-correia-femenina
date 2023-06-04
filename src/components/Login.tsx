@@ -10,6 +10,7 @@ export function Login() {
   const [show, setShow] = useState(false);
   const toast = useToast();
   const handleClick = () => setShow(!show);
+  const { setUser } = useContext(AuthContext);
 
   const [token, setToken] = useState("");
 
@@ -19,10 +20,22 @@ export function Login() {
       const response = await api.post("/api/login", data);
 
       const token = response.data.token;
-      console.log("🚀 ~ file: Login.tsx:20 ~ onSubmit ~ token:", token)
-      setTokenStorage(token)
-      setToken(token);
       localStorage.setItem("token", token);
+      setTokenStorage(token);
+      setToken(token);
+
+      const userResponse = await api.get("api/user/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (userResponse.status === 200) {
+        const userData = userResponse.data;
+        setUser(userData);
+
+        localStorage.setItem("user", JSON.stringify(userData));
+      }
 
       reset();
     } catch (error) {

@@ -18,10 +18,12 @@ import {
   Switch,
   useToast,
 } from "@chakra-ui/react";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { AxiosRequestConfig } from "axios";
+import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiFillCamera } from "react-icons/ai";
 import { api } from "../lib/api";
+import { AuthContext } from "./AuthContext/AuthContext";
 
 const categoria = ["MASCULINO", "FEMENINO"];
 
@@ -53,6 +55,7 @@ export function ModalEdit({
   const [value, setValue] = useState<string | null>(null);
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const { tokenStorage, setTokenStorage } = useContext(AuthContext);
 
   const {
     register,
@@ -115,7 +118,13 @@ export function ModalEdit({
       formData.append("modelos", data.modelos);
       formData.append("enabled", data.enabled);
 
-      await api.put(`/api/product/${id}`, formData);
+      const config: AxiosRequestConfig = {
+        headers: {
+          Authorization: `Bearer ${tokenStorage}`,
+        }
+      }
+
+      await api.put(`/api/product/${id}`, formData, config);
       setPreview("");
       setImagePreview(null);
       onClose();
