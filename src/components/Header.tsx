@@ -38,7 +38,8 @@ export function Header({ onSearch }: Headerprops) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false });
   const [searchValue, setSearchValue] = useState("");
-  const { user, tokenStorage } = useContext(AuthContext);
+  const { user, tokenStorage, setTokenStorage, setUser } =
+    useContext(AuthContext);
   console.log("🚀 ~ file: Header.tsx:36 ~ Header ~ user:", user);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -50,6 +51,13 @@ export function Header({ onSearch }: Headerprops) {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSearch(searchValue);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setTokenStorage("");
+    setUser(null);
   };
 
   return (
@@ -128,6 +136,9 @@ export function Header({ onSearch }: Headerprops) {
                     src={(user as User).imgAvatar}
                   />
                 </Flex>
+                <Box as={Link} ml={3} onClick={handleLogout}>
+                  <Text _hover={{ color: "red" }}>Sair</Text>
+                </Box>
               </>
             )
           ) : (
@@ -153,9 +164,14 @@ export function Header({ onSearch }: Headerprops) {
             <DrawerOverlay />
             <DrawerContent>
               <DrawerHeader borderBottomWidth="1px">
-                <LinkChakra href="/">
-                  <Image src={Logo} w={150} alt="logo Correia" />
-                </LinkChakra>
+                <>
+                  <LinkChakra href="/">
+                    <Image src={Logo} w={150} alt="logo Correia" />
+                  </LinkChakra>
+                  <Box>
+                    <Login />
+                  </Box>
+                </>
               </DrawerHeader>
               <DrawerBody>
                 <p>Some contents...</p>
@@ -199,14 +215,15 @@ export function Header({ onSearch }: Headerprops) {
               ariane@gmail.com
             </Text>
           </Box> */}
-
-            <Link to="/cadastrar">
-              <Avatar
-                size="md"
-                name="Ariane Shirley"
-                src="https://scontent.frec31-1.fna.fbcdn.net/v/t39.30808-6/262174588_4316835295091680_3672400332259559107_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=Uj2wZ4VckHcAX8lb-gU&_nc_ht=scontent.frec31-1.fna&oh=00_AfAlCnNjQviyfSVnH9hQpygtRcSQZqOV7wKGrTyRERcp4A&oe=647D518F"
-              />
-            </Link>
+            {tokenStorage && user && (
+              <Link to="/cadastrar">
+                <Avatar
+                  size="md"
+                  name="Ariane Shirley"
+                  src={(user as User).imgAvatar}
+                />
+              </Link>
+            )}
           </Flex>
         </Flex>
       )}
