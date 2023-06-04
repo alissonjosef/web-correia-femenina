@@ -11,17 +11,18 @@ import {
   Select,
   useToast,
 } from "@chakra-ui/react";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiFillCamera } from "react-icons/ai";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { api } from "../lib/api";
+import { AuthContext } from "./AuthContext/AuthContext";
 
 const categoria = ["MASCULINO", "FEMENINO"];
 
 export const CadastroProduct = () => {
-  
+  const { tokenStorage, setTokenStorage } = useContext(AuthContext);
   const { register, handleSubmit, reset } = useForm();
   const toast = useToast();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -56,6 +57,11 @@ export const CadastroProduct = () => {
   }
 
   const onSubmit = async (data: any) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${tokenStorage}`,
+      },
+    };
     try {
       const formData = new FormData();
       formData.append("name", data.name);
@@ -70,9 +76,8 @@ export const CadastroProduct = () => {
       formData.append("price", data.price.toString());
       formData.append("modelos", data.modelos);
 
-      await api.post("/api/product", formData);
+      await api.post("/api/product", formData, config);
 
-    
       setPreview("");
       reset();
 

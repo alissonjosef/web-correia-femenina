@@ -21,11 +21,12 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { format, parseISO } from "date-fns";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RiDeleteBin7Line, RiEdit2Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { api } from "../lib/api";
 import { formatCurrency } from "../utils/formatCurrency";
+import { AuthContext } from "./AuthContext/AuthContext";
 import { ModalEdit } from "./ModalEdit";
 interface CardsProps {
   description?: string;
@@ -52,6 +53,7 @@ export function CardsProduct({
   const toast = useToast();
   const [isNewPost, setIsNewPost] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { tokenStorage, setTokenStorage } = useContext(AuthContext);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -62,21 +64,36 @@ export function CardsProduct({
   };
 
   async function handleDeleteProduct() {
-    try {
-      await api.delete(`/api/product/${id}`);
+    if (tokenStorage) {
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${tokenStorage}`,
+          },
+        };
+        await api.delete(`/api/product/${id}`, config);
 
-      onClose();
+        onClose();
+        toast({
+          position: "top",
+          title: "Produto excluído",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+      } catch (error) {
+        toast({
+          position: "top",
+          title: "Erro ao excluir o produto",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+    } else {
       toast({
         position: "top",
-        title: "Produto excluído",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      });
-    } catch (error) {
-      toast({
-        position: "top",
-        title: "Erro ao excluir o produto",
+        title: "Você precisa fazer login para excluir o produto",
         status: "error",
         duration: 9000,
         isClosable: true,
@@ -86,17 +103,19 @@ export function CardsProduct({
 
   useEffect(() => {
     const createdAtNew = parseISO(createdAt);
-const postDate = format(createdAtNew, "yyyy-MM-dd");
-console.log("🚀 ~ file: CardsProduct.tsx:95 ~ useEffect ~ postDate:", postDate);
+    const postDate = format(createdAtNew, "yyyy-MM-dd");
+    console.log(postDate);
 
-const currentDate = new Date();
-const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
-const differenceInDays = Math.floor((currentDate.getTime() - createdAtNew.getTime()) / oneDayInMilliseconds);
+    const currentDate = new Date();
+    const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
+    const differenceInDays = Math.floor(
+      (currentDate.getTime() - createdAtNew.getTime()) / oneDayInMilliseconds
+    );
 
-const formattedDate = format(createdAtNew, "yyyy-MM-dd");
-console.log("🚀 ~ file: CardsProduct.tsx:105 ~ useEffect ~ formattedDate:", formattedDate);
+    const formattedDate = format(createdAtNew, "yyyy-MM-dd");
+    console.log(formattedDate);
 
-setIsNewPost(differenceInDays <= 1);
+    setIsNewPost(differenceInDays <= 1);
   }, []);
 
   return (

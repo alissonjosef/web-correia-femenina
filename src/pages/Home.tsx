@@ -31,12 +31,12 @@ export function Home({ searchValue }: HomeProps) {
     "products",
     async () => {
       const response = await api.get("/api/product");
-      setProduct(response.data)
+      setProduct(response.data);
       return response.data;
     },
     {
       refetchInterval: 5000,
-    } 
+    }
   );
 
   const filteredProducts =
