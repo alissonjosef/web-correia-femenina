@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Button,
   Drawer,
   DrawerBody,
   DrawerContent,
@@ -168,8 +169,21 @@ export function Header({ onSearch }: Headerprops) {
                   <LinkChakra href="/">
                     <Image src={Logo} w={150} alt="logo Correia" />
                   </LinkChakra>
-                  <Box>
-                    <Login />
+                  <Box justifyContent="center" alignItems="center">
+                    {tokenStorage ? (
+                      <Box w="full" pl={2} pr={2}>
+                        <Button
+                          colorScheme="red"
+                          width={{ base: "full", md: "5rem" }}
+                          mt={4}
+                          onClick={handleLogout}
+                        >
+                          <Text _hover={{ color: "red" }}>Sair</Text>
+                        </Button>
+                      </Box>
+                    ) : (
+                      <Login />
+                    )}
                   </Box>
                 </>
               </DrawerHeader>
