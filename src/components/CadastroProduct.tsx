@@ -27,7 +27,7 @@ export const CadastroProduct = () => {
   const toast = useToast();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  console.log(preview);
+ 
 
   useEffect(() => {
     if (
