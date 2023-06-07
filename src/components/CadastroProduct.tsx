@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import { api } from "../lib/api";
 import { AuthContext } from "./AuthContext/AuthContext";
 
-const categoria = ["MASCULINO", "FEMENINO"];
+const categoria = ["SAIA", "CAMISAS", "SHORT", "CINTO", "SANDALIA", "BOLSA"];
 
 export const CadastroProduct = () => {
   const { tokenStorage, setTokenStorage } = useContext(AuthContext);

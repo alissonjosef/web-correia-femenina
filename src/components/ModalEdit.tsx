@@ -25,7 +25,7 @@ import { AiFillCamera } from "react-icons/ai";
 import { api } from "../lib/api";
 import { AuthContext } from "./AuthContext/AuthContext";
 
-const categoria = ["MASCULINO", "FEMENINO"];
+const categoria = ["SAIA", "CAMISAS", "SHORT", "CINTO", "SANDALIA", "BOLSA"];
 
 interface ModalEditProps {
   isOpen: boolean;
