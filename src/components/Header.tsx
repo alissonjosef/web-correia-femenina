@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Drawer,
-  DrawerBody,
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
@@ -15,7 +14,7 @@ import {
   Link as LinkChakra,
   Text,
   useBreakpointValue,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { RiSearchLine, RiUserAddLine } from "react-icons/ri";
@@ -187,11 +186,11 @@ export function Header({ onSearch }: Headerprops) {
                   </Box>
                 </>
               </DrawerHeader>
-              <DrawerBody>
+             {/*  <DrawerBody>
                 <p>Some contents...</p>
                 <p>Some contents...</p>
                 <p>Some contents...</p>
-              </DrawerBody>
+              </DrawerBody> */}
             </DrawerContent>
           </Drawer>
 
