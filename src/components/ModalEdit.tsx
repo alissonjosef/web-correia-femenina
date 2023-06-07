@@ -98,7 +98,6 @@ export function ModalEdit({
   }
 
   const onSubmit = async (data: any) => {
-    console.log("🚀 ~ file: ModalEdit.tsx:99 ~ onSubmit ~ data:", data);
     try {
       const formData = new FormData();
       formData.append("name", data.name);
@@ -121,8 +120,8 @@ export function ModalEdit({
       const config: AxiosRequestConfig = {
         headers: {
           Authorization: `Bearer ${tokenStorage}`,
-        }
-      }
+        },
+      };
 
       await api.put(`/api/product/${id}`, formData, config);
       setPreview("");
@@ -220,7 +219,7 @@ export function ModalEdit({
                 <Select
                   bg="white"
                   placeholder="Selecione a categoria"
-                  defaultValue={modelos}
+                  defaultValue={modelos ?? ""}
                   {...register("modelos")}
                 >
                   {categoria.map((country, index) => (

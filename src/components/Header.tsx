@@ -40,7 +40,7 @@ export function Header({ onSearch }: Headerprops) {
   const [searchValue, setSearchValue] = useState("");
   const { user, tokenStorage, setTokenStorage, setUser } =
     useContext(AuthContext);
-  console.log("🚀 ~ file: Header.tsx:36 ~ Header ~ user:", user);
+ 
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;

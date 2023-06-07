@@ -46,7 +46,7 @@ export function CardsProduct({
   price,
   id,
   enabled,
-  modelos = "",
+  modelos,
   createdAt,
 }: CardsProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -104,7 +104,6 @@ export function CardsProduct({
   useEffect(() => {
     const createdAtNew = parseISO(createdAt);
     const postDate = format(createdAtNew, "yyyy-MM-dd");
-    console.log(postDate);
 
     const currentDate = new Date();
     const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
@@ -113,7 +112,6 @@ export function CardsProduct({
     );
 
     const formattedDate = format(createdAtNew, "yyyy-MM-dd");
-    console.log(formattedDate);
 
     setIsNewPost(differenceInDays <= 1);
   }, []);
@@ -259,7 +257,7 @@ export function CardsProduct({
         price={price}
         id={id}
         enabled={enabled}
-        modelos={modelos}
+        modelos={modelos ? modelos : "" }
       />
     </Card>
   );
