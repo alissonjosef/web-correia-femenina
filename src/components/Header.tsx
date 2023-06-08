@@ -14,7 +14,7 @@ import {
   Link as LinkChakra,
   Text,
   useBreakpointValue,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { RiSearchLine, RiUserAddLine } from "react-icons/ri";
@@ -40,7 +40,15 @@ export function Header({ onSearch }: Headerprops) {
   const [searchValue, setSearchValue] = useState("");
   const { user, tokenStorage, setTokenStorage, setUser } =
     useContext(AuthContext);
- 
+
+  const tokenParts = tokenStorage.split(".");
+
+  let profile;
+
+  if (tokenParts.length >= 2) {
+    const tokenPayload = JSON.parse(atob(tokenParts[1]));
+    profile = tokenPayload.profile;
+  }
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -117,9 +125,11 @@ export function Header({ onSearch }: Headerprops) {
                     borderRight={1}
                     borderColor="gray.700"
                   >
-                    <Link to="/cadastrar">
-                      <Icon as={RiUserAddLine} fontSize="20" />
-                    </Link>
+                    {profile === "ADMIN" && (
+                      <Link to="/cadastrar">
+                        <Icon as={RiUserAddLine} fontSize="20" />
+                      </Link>
+                    )}
                   </HStack>
                 </Flex>
                 <Flex align="center">
@@ -186,7 +196,7 @@ export function Header({ onSearch }: Headerprops) {
                   </Box>
                 </>
               </DrawerHeader>
-             {/*  <DrawerBody>
+              {/*  <DrawerBody>
                 <p>Some contents...</p>
                 <p>Some contents...</p>
                 <p>Some contents...</p>

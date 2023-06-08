@@ -55,6 +55,15 @@ export function CardsProduct({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { tokenStorage, setTokenStorage } = useContext(AuthContext);
 
+  const tokenParts = tokenStorage.split(".");
+
+  let profile;
+
+  if (tokenParts.length >= 2) {
+    const tokenPayload = JSON.parse(atob(tokenParts[1]));
+    profile = tokenPayload.profile;
+  }
+
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -128,38 +137,42 @@ export function CardsProduct({
         >
           {tokenStorage && (
             <Flex flexDirection="column" position="absolute">
-              <Icon
-                onClick={onOpen}
-                as={RiDeleteBin7Line}
-                position="relative"
-                zIndex={999}
-                color="gray.100"
-                mt={2}
-                ml={2}
-                _hover={{
-                  color: "red.300",
-                  background: "white",
-                  rounded: "full",
-                  padding: "2px",
-                }}
-              />
+              {profile === "ADMIN" && (
+                <>
+                  <Icon
+                    onClick={onOpen}
+                    as={RiDeleteBin7Line}
+                    position="relative"
+                    zIndex={999}
+                    color="gray.100"
+                    mt={2}
+                    ml={2}
+                    _hover={{
+                      color: "red.300",
+                      background: "white",
+                      rounded: "full",
+                      padding: "2px",
+                    }}
+                  />
 
-              <Icon
-                onClick={handleOpenModal}
-                as={RiEdit2Line}
-                position="relative"
-                zIndex={999}
-                color="gray.100"
-                mt={4}
-                ml={2}
-                mr={2}
-                _hover={{
-                  color: "red.300",
-                  background: "white",
-                  rounded: "full",
-                  padding: "2px",
-                }}
-              />
+                  <Icon
+                    onClick={handleOpenModal}
+                    as={RiEdit2Line}
+                    position="relative"
+                    zIndex={999}
+                    color="gray.100"
+                    mt={4}
+                    ml={2}
+                    mr={2}
+                    _hover={{
+                      color: "red.300",
+                      background: "white",
+                      rounded: "full",
+                      padding: "2px",
+                    }}
+                  />
+                </>
+              )}
             </Flex>
           )}
           {isNewPost && (
@@ -257,7 +270,7 @@ export function CardsProduct({
         price={price}
         id={id}
         enabled={enabled}
-        modelos={modelos ? modelos : "" }
+        modelos={modelos ? modelos : ""}
       />
     </Card>
   );
