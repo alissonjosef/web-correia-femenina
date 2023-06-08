@@ -65,6 +65,7 @@ export function Header({ onSearch }: Headerprops) {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setTokenStorage("");
+    onClose();
     setUser(null);
   };
 
@@ -191,7 +192,7 @@ export function Header({ onSearch }: Headerprops) {
                         </Button>
                       </Box>
                     ) : (
-                      <Login />
+                      <Login onClose={onClose} />
                     )}
                   </Box>
                 </>
@@ -239,7 +240,7 @@ export function Header({ onSearch }: Headerprops) {
             </Text>
           </Box> */}
             {tokenStorage && user && (
-              <Link to="/cadastrar">
+              <Link to={profile === "ADMIN" ? "/cadastrar" : ""}>
                 <Avatar
                   size="md"
                   name="Ariane Shirley"

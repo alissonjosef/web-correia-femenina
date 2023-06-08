@@ -4,22 +4,44 @@ import {
   Flex,
   Icon,
   Input,
+  Text,
   useBreakpointValue,
   useToast,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../lib/api";
 import { AuthContext } from "./AuthContext/AuthContext";
 
-export function Login() {
+interface loginProps {
+  onClose?: () => void;
+}
+
+export function Login({ onClose }: loginProps) {
   const isMobile = useBreakpointValue({ base: false, md: true });
   const { tokenStorage, setTokenStorage } = useContext(AuthContext);
   const [show, setShow] = useState(false);
   const toast = useToast();
   const handleClick = () => setShow(!show);
   const { setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLinkLogin = () => {
+    if (onClose) {
+      onClose();
+      navigate("/");
+      // Fecha o Drawer ao clicar no link
+    } // Fecha o Drawer ao clicar no link
+  };
+
+  const handleLinkClick = () => {
+    if (onClose) {
+      onClose();
+      // Fecha o Drawer ao clicar no link
+    } // Fecha o Drawer ao clicar no link
+  };
 
   const [token, setToken] = useState("");
 
@@ -30,8 +52,8 @@ export function Login() {
       const response = await api.post("/api/login", { email, password });
 
       const token = response.data.token;
-      
-     /*  const tokenParts = token.split(".");
+
+      /*  const tokenParts = token.split(".");
       const tokenPayload = JSON.parse(atob(tokenParts[1]));
 
       const userId = tokenPayload.userId;
@@ -156,6 +178,11 @@ export function Login() {
           <Button type="submit" ml={4} colorScheme="blue">
             Entrar
           </Button>
+          <Link to="/register">
+            <Button ml={4} colorScheme="blue">
+              Cadastrar
+            </Button>
+          </Link>
         </Box>
       ) : (
         <Box
@@ -237,9 +264,16 @@ export function Login() {
               type="submit"
               width={{ base: "full", md: "5rem" }}
               colorScheme="blue"
+              onClick={handleLinkLogin}
             >
               Entrar
             </Button>
+
+            <Link to="/register" onClick={handleLinkClick}>
+              <Text mt={2} color="gray.500">
+                Cadastrar
+              </Text>
+            </Link>
           </Box>
         </Box>
       )}
