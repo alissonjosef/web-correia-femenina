@@ -15,7 +15,8 @@ import {
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { IoIosArrowRoundBack } from "react-icons/io";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../lib/api";
 
 export function Register() {
@@ -60,6 +61,14 @@ export function Register() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Center>
         <Box mt={10} width="300px" p="4" bg="white" rounded="md" boxShadow="lg">
+          <Link to="/">
+            <Icon
+              as={IoIosArrowRoundBack}
+              mr={2}
+              color="gray.400"
+              fontSize={35}
+            />
+          </Link>
           <VStack spacing="4">
             <FormControl isRequired>
               <FormLabel>Nome</FormLabel>
