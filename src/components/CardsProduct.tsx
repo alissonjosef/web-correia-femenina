@@ -169,7 +169,7 @@ export function CardsProduct({
               </Badge>
             </Box>
           )}
-          {enabled === false && (
+          {enabled && (
             <Box justifyContent="center">
               <Badge m="1" colorScheme="red" position="absolute" zIndex={999}>
                 Produto esgotado
@@ -184,7 +184,7 @@ export function CardsProduct({
               borderRadius="lg"
               objectFit="cover"
               w="full"
-              opacity={enabled === true ? "" : "0.2"}
+              opacity={enabled === false ? "" : "0.2"}
             />
           </Link>
         </Box>

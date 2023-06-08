@@ -126,7 +126,7 @@ export function Header({ onSearch }: Headerprops) {
                   <Box mr="4" textAlign="right">
                     <Text>{(user as User).email}</Text>
                     <Text color="gray.500" fontSize="small">
-                      {(user as User).email}
+                      {(user as User).name}
                     </Text>
                   </Box>
 

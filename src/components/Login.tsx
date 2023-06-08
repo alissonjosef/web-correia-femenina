@@ -26,9 +26,26 @@ export function Login() {
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = async (data: any) => {
     try {
-      const response = await api.post("/api/login", data);
+      const { email, password } = data;
+      const response = await api.post("/api/login", { email, password });
 
       const token = response.data.token;
+      
+     /*  const tokenParts = token.split(".");
+      const tokenPayload = JSON.parse(atob(tokenParts[1]));
+
+      const userId = tokenPayload.userId;
+      const name = tokenPayload.name;
+      const emailToken = tokenPayload.email;
+      const imgAvatar = tokenPayload.imgAvatar;
+      const profile = tokenPayload.profile;
+
+      console.log(userId); // ID do usuário
+      console.log(name); // Nome do usuário
+      console.log(emailToken); // E-mail do usuário
+      console.log(imgAvatar); // URL da imagem do avatar do usuário
+      console.log(profile); // Profile */
+
       localStorage.setItem("token", token);
       setTokenStorage(token);
       setToken(token);
