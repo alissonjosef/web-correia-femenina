@@ -58,8 +58,8 @@ export function Register() {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Center height="100vh">
-        <Box width="300px" p="4" bg="white" rounded="md" boxShadow="lg">
+      <Center>
+        <Box mt={10} width="300px" p="4" bg="white" rounded="md" boxShadow="lg">
           <VStack spacing="4">
             <FormControl isRequired>
               <FormLabel>Nome</FormLabel>
@@ -96,6 +96,7 @@ export function Register() {
                 />
                 <InputRightElement width="4.5rem">
                   <Icon
+                    color="gray.500"
                     as={show ? AiFillEye : AiFillEyeInvisible}
                     fontSize="1.2rem"
                     onClick={handlePassword}
@@ -120,6 +121,7 @@ export function Register() {
                 />
                 <InputRightElement width="4.5rem">
                   <Icon
+                    color="gray.500"
                     as={showConfirm ? AiFillEye : AiFillEyeInvisible}
                     fontSize="1.2rem"
                     onClick={handlePasswordConfirm}

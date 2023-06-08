@@ -44,9 +44,14 @@ export function Header({ onSearch }: Headerprops) {
   const tokenParts = tokenStorage.split(".");
 
   let profile;
+  console.log(profile);
 
   if (tokenParts.length >= 2) {
     const tokenPayload = JSON.parse(atob(tokenParts[1]));
+    console.log(
+      "🚀 ~ file: Header.tsx:52 ~ Header ~ tokenPayload:",
+      tokenPayload
+    );
     profile = tokenPayload.profile;
   }
 
