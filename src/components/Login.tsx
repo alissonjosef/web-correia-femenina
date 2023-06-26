@@ -270,7 +270,7 @@ export function Login({ onClose }: loginProps) {
             </Button>
 
             <Link to="/register" onClick={handleLinkClick}>
-              <Text mt={2} color="gray.500">
+              <Text mt={2} fontSize='sm' color="gray.500">
                 Cadastrar
               </Text>
             </Link>

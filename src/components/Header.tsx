@@ -23,6 +23,7 @@ import Logo from "../assets/correia.png";
 import LogoCorreia from "../assets/logo.png";
 import { AuthContext, User } from "./AuthContext/AuthContext";
 import { Login } from "./Login";
+import { ShoppingCart } from "./ShoppingCart";
 
 interface Headerprops {
   onSearch: (value: string) => void;
@@ -131,10 +132,18 @@ export function Header({ onSearch }: Headerprops) {
                     borderRight={1}
                     borderColor="gray.700"
                   >
-                    {profile === "ADMIN" && (
+                    {profile === "ADMIN" ? (
                       <Link to="/cadastrar">
                         <Icon as={RiUserAddLine} fontSize="20" />
                       </Link>
+                    ) : (
+                      /*  <Link to="/">
+                       
+                      </Link> */
+                      <>
+                        
+                        <ShoppingCart />
+                      </>
                     )}
                   </HStack>
                 </Flex>
