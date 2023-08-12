@@ -197,6 +197,7 @@ export function CardsProduct({
               borderRadius="lg"
               objectFit="cover"
               w="full"
+              h="27rem"
               opacity={enabled === false ? "" : "0.2"}
             />
           </Link>
