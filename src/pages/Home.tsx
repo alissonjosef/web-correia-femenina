@@ -1,4 +1,4 @@
-import { Box, Grid, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, Grid, Text, useBreakpointValue } from "@chakra-ui/react";
 import { Key, useContext } from "react";
 import { useQuery } from "react-query";
 import { CardsProduct } from "../components/CardsProduct";
@@ -64,55 +64,59 @@ export function Home({ searchValue }: HomeProps) {
         <Loading />
       ) : (
         <Box>
-          {!isMobile ? (
-            <Grid
-              templateColumns="repeat(4, 1fr)"
-              gap={6}
-              w="100%"
-              maxWidth={1480}
-              h={20}
-              mt="10"
-              mx="auto"
-              px={20}
-            >
-              {filteredProducts.map(
-                (product: ProductProps, index: Key | null | undefined) => {
-                  return (
-                    <CardsProduct
-                      key={index}
-                      imageUrl={product.imageUrl}
-                      name={product.name}
-                      description={product.description}
-                      price={product.price}
-                      enabled={product.enabled}
-                      id={product._id}
-                      createdAt={product.createdAt}
-                    />
-                  );
-                }
-              )}
-            </Grid>
-          ) : (
-            <Grid gap={6} w="100%" h={20} mt="10" mx="auto" px={10}>
-              {filteredProducts.map(
-                (product: ProductProps, index: Key | null | undefined) => {
-                  return (
-                    <CardsProduct
-                      key={index}
-                      imageUrl={product.imageUrl}
-                      name={product.name}
-                      description={product.description}
-                      price={product.price}
-                      enabled={product.enabled}
-                      id={product._id}
-                      createdAt={product.createdAt}
-                    />
-                  );
-                }
-              )}
-            </Grid>
-          )}
-        </Box>
+        {!isMobile ? (
+          <Grid
+            templateColumns="repeat(4, 1fr)"
+            gap={6}
+            w="100%"
+            maxWidth={1480}
+            h={20}
+            mt="10"
+            mx="auto"
+            px={20}
+          >
+            {filteredProducts.length === 0 ? (
+              <Flex justify="center" align="center" h="100%">
+              <Text>Nenhum produto encontrado.</Text>
+            </Flex>
+            ) : (
+              filteredProducts.map((product: ProductProps, index: Key | null | undefined) => (
+                <CardsProduct
+                  key={index}
+                  imageUrl={product.imageUrl}
+                  name={product.name}
+                  description={product.description}
+                  price={product.price}
+                  enabled={product.enabled}
+                  id={product._id}
+                  createdAt={product.createdAt}
+                />
+              ))
+            )}
+          </Grid>
+        ) : (
+          <Grid gap={6} w="100%" h={20} mt="10" mx="auto" px={10}>
+            {filteredProducts.length === 0 ? (
+              <Flex justify="center" align="center" h="100%">
+              <Text>Nenhum produto encontrado.</Text>
+            </Flex>
+            ) : (
+              filteredProducts.map((product: ProductProps, index: Key | null | undefined) => (
+                <CardsProduct
+                  key={index}
+                  imageUrl={product.imageUrl}
+                  name={product.name}
+                  description={product.description}
+                  price={product.price}
+                  enabled={product.enabled}
+                  id={product._id}
+                  createdAt={product.createdAt}
+                />
+              ))
+            )}
+          </Grid>
+        )}
+      </Box>
       )}
     </>
   );
