@@ -30,8 +30,9 @@ export function Home({ searchValue }: HomeProps) {
   } = useQuery(
     "products",
     async () => {
-      const response = await api.get("/api/product");
+      const response = await api.get("/api/product?sort=createdAt");
       setProduct(response.data);
+      console.log("🚀 ~ file: Home.tsx:36 ~ response:", response)
       return response.data;
     },
     {
@@ -83,7 +84,7 @@ export function Home({ searchValue }: HomeProps) {
               filteredProducts.map((product: ProductProps, index: Key | null | undefined) => (
                 <CardsProduct
                   key={index}
-                  imageUrl={product.imageUrl}
+                  imageUrl={product.imageUrl[0]}
                   name={product.name}
                   description={product.description}
                   price={product.price}

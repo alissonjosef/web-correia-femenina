@@ -39,24 +39,46 @@ export const CadastroProduct = () => {
   const { register, handleSubmit, reset } = useForm();
   const toast = useToast();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
- 
+  const [preview, setPreview] = useState<string[]>([]);
 
+  // ...
+  
   useEffect(() => {
     if (
-      fileInputRef.current &&
-      fileInputRef.current.files &&
+      fileInputRef.current?.files &&
       fileInputRef.current.files.length > 0
     ) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreview(reader.result as string);
+        if (reader.result !== null) {
+          setPreview([reader.result as string]);
+        }
       };
       reader.readAsDataURL(fileInputRef.current.files[0]);
     } else {
-      setPreview(null);
+      setPreview([]);
     }
   }, [fileInputRef.current]);
+  
+
+
+  useEffect(() => {
+    if (
+      fileInputRef.current?.files &&
+      fileInputRef.current.files.length > 0
+    ) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (reader.result !== null) {
+          setPreview([reader.result as string]);
+        }
+      };
+      reader.readAsDataURL(fileInputRef.current.files[0]);
+    } else {
+      setPreview([]);
+    }
+  }, [fileInputRef.current]);
+  
 
   function onFileSelected(event: ChangeEvent<HTMLInputElement>) {
     const { files } = event.target;
@@ -65,8 +87,14 @@ export const CadastroProduct = () => {
       return;
     }
 
-    const previewURL = URL.createObjectURL(files[0]);
-    setPreview(previewURL);
+    const previewURLs: string[] = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const previewURL = URL.createObjectURL(files[i]);
+      previewURLs.push(previewURL);
+    }
+
+    setPreview(previewURLs);
   }
 
   const onSubmit = async (data: any) => {
@@ -79,21 +107,26 @@ export const CadastroProduct = () => {
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("description", data.description);
+  
+      // Adicione todas as imagens selecionadas ao formData
       if (
         fileInputRef.current &&
         fileInputRef.current.files &&
         fileInputRef.current.files.length > 0
       ) {
-        formData.append("imageUrl", fileInputRef.current.files[0]);
-      } // Usando a referência do input de arquivo
+        for (let i = 0; i < fileInputRef.current.files.length; i++) {
+          formData.append("imageUrl", fileInputRef.current.files[i]);
+        }
+      }
+  
       formData.append("price", data.price.toString());
       formData.append("modelos", data.modelos);
-
+  
       await api.post("/api/product", formData, config);
-
-      setPreview("");
+  
+      setPreview([]);
       reset();
-
+  
       toast({
         position: "top",
         title: "Produto cadastrado",
@@ -111,6 +144,7 @@ export const CadastroProduct = () => {
       });
     }
   };
+  
 
   return (
     <Flex w="100%" my="6" maxW={1488} mx="auto" px="6">
@@ -167,6 +201,7 @@ export const CadastroProduct = () => {
                   accept="image/*"
                   style={{ display: "none", cursor: "pointer" }}
                   onChange={onFileSelected}
+                  multiple
                 />
 
                 <label htmlFor="media" style={{ cursor: "pointer" }}>
@@ -177,7 +212,15 @@ export const CadastroProduct = () => {
                     fontSize={40}
                   />
                 </label>
-                {preview && <Image src={preview} alt="" rounded="lg" />}
+                {preview &&
+                  preview.map((url: any, index: any) => (
+                    <Image
+                      key={index}
+                      src={url || ""}
+                      alt={`Preview ${index}`}
+                      rounded="lg"
+                    />
+                  ))}
               </FormControl>
             </Box>
 
