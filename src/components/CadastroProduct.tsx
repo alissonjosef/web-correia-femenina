@@ -42,12 +42,9 @@ export const CadastroProduct = () => {
   const [preview, setPreview] = useState<string[]>([]);
 
   // ...
-  
+
   useEffect(() => {
-    if (
-      fileInputRef.current?.files &&
-      fileInputRef.current.files.length > 0
-    ) {
+    if (fileInputRef.current?.files && fileInputRef.current.files.length > 0) {
       const reader = new FileReader();
       reader.onloadend = () => {
         if (reader.result !== null) {
@@ -59,14 +56,9 @@ export const CadastroProduct = () => {
       setPreview([]);
     }
   }, [fileInputRef.current]);
-  
-
 
   useEffect(() => {
-    if (
-      fileInputRef.current?.files &&
-      fileInputRef.current.files.length > 0
-    ) {
+    if (fileInputRef.current?.files && fileInputRef.current.files.length > 0) {
       const reader = new FileReader();
       reader.onloadend = () => {
         if (reader.result !== null) {
@@ -78,7 +70,6 @@ export const CadastroProduct = () => {
       setPreview([]);
     }
   }, [fileInputRef.current]);
-  
 
   function onFileSelected(event: ChangeEvent<HTMLInputElement>) {
     const { files } = event.target;
@@ -107,8 +98,7 @@ export const CadastroProduct = () => {
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("description", data.description);
-  
-      // Adicione todas as imagens selecionadas ao formData
+
       if (
         fileInputRef.current &&
         fileInputRef.current.files &&
@@ -118,15 +108,15 @@ export const CadastroProduct = () => {
           formData.append("imageUrl", fileInputRef.current.files[i]);
         }
       }
-  
+
       formData.append("price", data.price.toString());
       formData.append("modelos", data.modelos);
-  
+
       await api.post("/api/product", formData, config);
-  
+
       setPreview([]);
       reset();
-  
+
       toast({
         position: "top",
         title: "Produto cadastrado",
@@ -144,7 +134,6 @@ export const CadastroProduct = () => {
       });
     }
   };
-  
 
   return (
     <Flex w="100%" my="6" maxW={1488} mx="auto" px="6">
@@ -194,7 +183,7 @@ export const CadastroProduct = () => {
               <FormControl isRequired>
                 <FormLabel>Adicione a imagem</FormLabel>
                 <input
-                  ref={fileInputRef} // Referência para o input de arquivo
+                  ref={fileInputRef}
                   name="imageUrl"
                   type="file"
                   id="media"
@@ -212,15 +201,23 @@ export const CadastroProduct = () => {
                     fontSize={40}
                   />
                 </label>
-                {preview &&
-                  preview.map((url: any, index: any) => (
-                    <Image
-                      key={index}
-                      src={url || ""}
-                      alt={`Preview ${index}`}
-                      rounded="lg"
-                    />
-                  ))}
+                <Box
+                 display="grid"
+                 gridTemplateColumns="repeat(3, 1fr)"
+                 gap={4}
+                >
+                  {preview &&
+                    preview.map((url: any, index: any) => (
+                      <Image
+                        key={index}
+                        src={url || ""}
+                        alt={`Preview ${index}`}
+                        rounded="lg"
+                        maxW="100%"
+                        h="auto"
+                      />
+                    ))}
+                </Box>
               </FormControl>
             </Box>
 
