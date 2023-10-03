@@ -1,5 +1,7 @@
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Button,
   Center,
   Flex,
   Grid,
@@ -7,7 +9,7 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { formatCurrency } from "../utils/formatCurrency";
 import { ProductContext } from "./ProductContext";
@@ -16,6 +18,7 @@ export function InfoProduct() {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { productId } = useParams();
   const { product } = useContext(ProductContext);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   let productsArray = Array.isArray(product) ? product : [product];
 
@@ -25,6 +28,20 @@ export function InfoProduct() {
     return <div>Produto não encontrado</div>;
   }
 
+  const handleNextImage = () => {
+    setCurrentImageIndex(
+      (prevIndex: any) => (prevIndex + 1) % productData.imageUrl.length
+    );
+  };
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex(
+      (prevIndex: any) =>
+        (prevIndex - 1 + productData.imageUrl.length) %
+        productData.imageUrl.length
+    );
+  };
+
   return (
     <Center py={{ base: 6, md: 8 }}>
       <Grid
@@ -32,10 +49,38 @@ export function InfoProduct() {
         gap={4}
         alignItems="center"
         maxWidth="900px"
+        position='relative'
       >
+        {productData.imageUrl.length > 1 && (
+          <>
+            <Button
+              onClick={handlePrevImage}
+              position="absolute"
+              top="50%"
+              left="0"
+              transform="translateY(-50%)"
+              zIndex="2"
+              backgroundColor="transparent"
+            >
+              <ChevronLeftIcon boxSize={8} />
+            </Button>
+            <Button
+              onClick={handleNextImage}
+              position="absolute"
+              top="50%"
+              right="0"
+              transform="translateY(-50%)"
+              zIndex="2"
+              backgroundColor="transparent"
+            >
+              <ChevronRightIcon boxSize={8} />
+            </Button>
+          </>
+        )}
+       
         <Image
           borderRadius="lg"
-          src={productData.imageUrl}
+          src={productData.imageUrl[currentImageIndex]}
           alt={productData.name}
         />
         <Flex justifyContent="center">
@@ -48,7 +93,7 @@ export function InfoProduct() {
             </Text>
             <Text fontSize="4xl" fontWeight="bold" color="blue.300">
               {formatCurrency(productData.price)}
-            </Text>
+            </Text>     
           </Box>
         </Flex>
       </Grid>
