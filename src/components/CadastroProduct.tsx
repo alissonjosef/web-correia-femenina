@@ -9,6 +9,7 @@ import {
   Image,
   Input,
   Select,
+  useBreakpointValue,
   useToast,
 } from "@chakra-ui/react";
 import { ChangeEvent, useContext, useEffect, useRef, useState } from "react";
@@ -35,6 +36,7 @@ const categoria = [
 ];
 
 export const CadastroProduct = () => {
+  const isMobile = useBreakpointValue({ base: '1fr', md: 'repeat(3, 1fr)' });
   const { tokenStorage, setTokenStorage } = useContext(AuthContext);
   const { register, handleSubmit, reset } = useForm();
   const toast = useToast();
@@ -203,7 +205,7 @@ export const CadastroProduct = () => {
                 </label>
                 <Box
                  display="grid"
-                 gridTemplateColumns="repeat(3, 1fr)"
+                 gridTemplateColumns={isMobile}
                  gap={4}
                 >
                   {preview &&
@@ -215,6 +217,7 @@ export const CadastroProduct = () => {
                         rounded="lg"
                         maxW="100%"
                         h="auto"
+                        objectFit="cover"
                       />
                     ))}
                 </Box>
