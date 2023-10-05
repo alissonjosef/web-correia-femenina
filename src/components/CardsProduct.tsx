@@ -18,7 +18,7 @@ import {
   Stack,
   Text,
   useDisclosure,
-  useToast,
+  useToast
 } from "@chakra-ui/react";
 import { format, parseISO } from "date-fns";
 import { useContext, useEffect, useState } from "react";
@@ -54,6 +54,7 @@ export function CardsProduct({
   const [isNewPost, setIsNewPost] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { tokenStorage, setTokenStorage } = useContext(AuthContext);
+  const firstImageUrl = Array.isArray(imageUrl) && imageUrl.length > 0 ? imageUrl[0] : imageUrl;
 
   const tokenParts = tokenStorage.split(".");
 
@@ -192,12 +193,12 @@ export function CardsProduct({
           <Link to={`/infoProduto/${id}`}>
             <Image
               position="relative"
-              src={imageUrl}
+              src={firstImageUrl}
               alt="Green double couch with wooden legs"
               borderRadius="lg"
               objectFit="cover"
               w="full"
-              h="27rem"
+              h={["auto", "27rem"]}
               opacity={enabled === false ? "" : "0.2"}
             />
           </Link>
